@@ -36,6 +36,8 @@ public class AnadirAsignatura extends JFrame {
 	private JFrame ventanaActual;
 
 	public AnadirAsignatura() {
+		setBounds(100, 100, 330, 210);
+		setResizable(false);
 
 		ventanaActual = this;
 		GridBagLayout gridBagLayout = new GridBagLayout();

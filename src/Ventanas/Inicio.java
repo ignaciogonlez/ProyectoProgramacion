@@ -2,6 +2,7 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -68,7 +69,8 @@ public class Inicio extends JFrame {
 
 		setTitle("VENTANA INICIAL");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 300);
+		setBounds(100, 100, 850, 450);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -95,7 +97,8 @@ public class Inicio extends JFrame {
 		lblNombre = new JLabel("Introduce tu dni:");
 		panelCentral.add(lblNombre);
 
-		textDni = new JTextField();
+		textDni = new JTextField(30);
+
 		panelCentral.add(textDni);
 		textDni.setColumns(10);
 

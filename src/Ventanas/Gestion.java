@@ -38,7 +38,7 @@ public class Gestion extends JFrame {
 	private JButton btnReset;
 
 	public Gestion() throws ExcepcionAlud {
-
+		setSize(850, 400);
 		asignaturasJTable = new JTable();
 		JScrollPane scrollPane = new JScrollPane(asignaturasJTable);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
