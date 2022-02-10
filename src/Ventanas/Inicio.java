@@ -164,7 +164,7 @@ public class Inicio extends JFrame {
 				}
 
 				if (!correctoDni) {
-					JOptionPane.showMessageDialog(null, "El dni o la contraseña no son correcto", "ERROR!!",
+					JOptionPane.showMessageDialog(null, "El dni no tiene el formato correcto", "ERROR!!",
 							JOptionPane.ERROR_MESSAGE);
 
 				} else if (aAdmins.size() > 0) {
@@ -176,8 +176,8 @@ public class Inicio extends JFrame {
 					}
 					ventanaActual.setVisible(false);
 				} else {
-					JOptionPane.showMessageDialog(null, "Primero debe registrarse", "INICIO INCORRECTO",
-							JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "El dni o la contraseña no son correctos", "INICIO INCORRECTO",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
