@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class DBManager {
 	private static Logger logger = Logger.getLogger("DBManager");
 
-	private static Connection conn;
+	public static Connection conn;
 
 	/**
 	 * Abre la BD
@@ -42,10 +42,11 @@ public class DBManager {
 	 * Obtiene la lista de todas las asignaturas de la BD.
 	 * 
 	 * @return lista de todos las asignaturas de la base de datos.
-	 * @throws SQLException error al intentar obtener la lista .
+	 * @throws ExcepcionAlud
+	 * @throws SQLException  error al intentar obtener la lista .
 	 */
 
-	public static void crearTablas() {
+	public static void crearTablas() throws ExcepcionAlud {
 		logger.log(Level.FINE, "Creando tablas");
 
 		String sent = "CREATE TABLE IF NOT EXISTS admin(dni String, contrasena String)";
@@ -64,8 +65,7 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
@@ -74,7 +74,7 @@ public class DBManager {
 	/**
 	
 	 */
-	public static void anadirAsignatura(Asignatura asig) {
+	public static void anadirAsignatura(Asignatura asig) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Añadiendo asignatura: " + asig);
 
 		String sent = " INSERT INTO asignaturas VALUES('" + asig.getAnoAcademico() + "','" + asig.getNomAsignatura()
@@ -92,8 +92,7 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
@@ -123,7 +122,7 @@ public class DBManager {
 	 * @return asignaturas de el param anoAcademico
 	 * @throws SQLException
 	 */
-	public static List<Asignatura> getAsignaturaAno(int anoAcademico) throws SQLException {
+	public static List<Asignatura> getAsignaturaAno(int anoAcademico) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Buscando asignaturas con anoAcademico: " + anoAcademico);
 
 		String sent = "SELECT * FROM asignaturas WHERE anoAcademico='" + anoAcademico + "';";
@@ -146,8 +145,7 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
@@ -160,7 +158,7 @@ public class DBManager {
 	 * @return asignaturas de el param carrera
 	 * @throws SQLException
 	 */
-	public static List<Asignatura> getAsignaturaAno(String carrera) throws SQLException {
+	public static List<Asignatura> getAsignaturaAno(String carrera) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Buscando asignaturas con carrera: " + carrera);
 
 		String sent = "SELECT * FROM asignaturas WHERE carrera='" + carrera + "';";
@@ -183,8 +181,7 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
@@ -198,7 +195,7 @@ public class DBManager {
 	 * @param dni
 	 * @param contrasena
 	 */
-	public static void anadirAdmin(String dni, String contrasena) {
+	public static void anadirAdmin(String dni, String contrasena) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Añadiendo admin con dni: " + dni);
 		String sent = " INSERT INTO Admin VALUES('" + dni + "','" + contrasena + "')";
 		Statement st = null;
@@ -214,8 +211,7 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
@@ -227,7 +223,7 @@ public class DBManager {
 	 * @param con
 	 * @return
 	 */
-	public static ArrayList<Admin> obtenerAdmin() {
+	public static ArrayList<Admin> obtenerAdmin() throws ExcepcionAlud {
 		logger.log(Level.FINE, "Buscando admins...");
 		String sent = "SELECT * FROM Admin";
 		Statement st = null;
@@ -249,15 +245,14 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
 		return aAdmin;
 	}
 
-	public static void eliminarAdmin(String dni, String contrasena) {
+	public static void eliminarAdmin(String dni, String contrasena) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Eliminar admin con dni: " + dni);
 
 		String sent = "DELETE FROM Admin WHERE dni='" + dni + "' AND contrasena='" + contrasena + "'";
@@ -274,14 +269,13 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
 	}
 
-	public static ArrayList<Admin> obtenerAdmin(String dni, String pass) {
+	public static ArrayList<Admin> obtenerAdmin(String dni, String pass) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Obteniendo admin con dni: " + dni);
 
 		String sent = String.format("SELECT * FROM Admin WHERE dni='%s' AND contrasena='%s';", dni, pass);
@@ -304,15 +298,14 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}
 		return aAdmin;
 	}
 
-	public static ArrayList<Admin> obtenerAdmin(String dni) {
+	public static ArrayList<Admin> obtenerAdmin(String dni) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Obteniendo admin con dni: " + dni);
 
 		String sent = String.format("SELECT * FROM Admin WHERE dni='%s';", dni);
@@ -335,8 +328,7 @@ public class DBManager {
 				try {
 					st.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ExcepcionAlud(e.getMessage());
 				}
 			}
 		}

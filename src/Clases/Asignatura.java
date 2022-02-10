@@ -63,4 +63,16 @@ public class Asignatura {
 		return toString;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Asignatura) {
+			Asignatura asig = (Asignatura) obj;
+			return this.getAnoAcademico() == asig.getAnoAcademico() && this.getCarrera().equals(asig.getCarrera())
+					&& this.getCreditos() == asig.getCreditos()
+					&& this.getNomAsignatura().equals(asig.getNomAsignatura())
+					&& this.getNomprofesor().equals(asig.getNomprofesor());
+		}
+		return super.equals(obj);
+	}
+
 }

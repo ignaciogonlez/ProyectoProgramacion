@@ -149,8 +149,19 @@ public class Inicio extends JFrame {
 				} catch (ClassNotFoundException | SQLException e1) {
 					logger.log(Level.SEVERE, "Error conectando con bd", e1);
 				}
-				DBManager.crearTablas();
-				ArrayList<Admin> aAdmins = DBManager.obtenerAdmin(d, textContrasenia.getText());
+
+				try {
+					DBManager.crearTablas();
+				} catch (ExcepcionAlud e2) {
+					logger.log(Level.SEVERE, "Error creando tablas", e2);
+				}
+
+				ArrayList<Admin> aAdmins = new ArrayList<Admin>();
+				try {
+					aAdmins = DBManager.obtenerAdmin(d, textContrasenia.getText());
+				} catch (ExcepcionAlud e2) {
+					logger.log(Level.SEVERE, "Error obtenerAdmin", e2);
+				}
 
 				if (!correctoDni) {
 					JOptionPane.showMessageDialog(null, "El dni o la contraseña no son correcto", "ERROR!!",

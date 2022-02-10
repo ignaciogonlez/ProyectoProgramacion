@@ -91,7 +91,7 @@ public class Gestion extends JFrame {
 					asignaturas = DBManager.getAsignaturaAno(carrera);
 					updateUI(asignaturas);
 
-				} catch (SQLException e1) {
+				} catch (ExcepcionAlud e1) {
 					logger.log(Level.SEVERE, "Gestion error", e1);
 				}
 
@@ -108,7 +108,7 @@ public class Gestion extends JFrame {
 					asignaturas = DBManager.getAsignaturaAno(ano);
 					updateUI(asignaturas);
 
-				} catch (SQLException e1) {
+				} catch (ExcepcionAlud e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
@@ -14,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import Clases.Admin;
 
 import Clases.DBManager;
+import Clases.ExcepcionAlud;
 
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -36,6 +39,8 @@ public class Registro extends JFrame {
 	private JLabel lblContrasena;
 	private JTextField textContrasena;
 	private JButton btnRegistrarPersona;
+	private static Logger logger = Logger.getLogger("Asignatura");
+
 
 	/**
 	 * Create the frame.
@@ -71,16 +76,29 @@ public class Registro extends JFrame {
 				boolean correctoDni = Pattern.matches(erdni, d);
 				String n = textContrasena.getText();
 
-				DBManager.crearTablas();
+				try {
+					DBManager.crearTablas();
+				} catch (ExcepcionAlud e2) {
+					logger.log(Level.SEVERE, "Error creando tablas", e2);
+				}
 
 				if (!correctoDni) {
 					JOptionPane.showMessageDialog(null, "El dni no es correcto", "ERROR!!", JOptionPane.ERROR_MESSAGE);
 					vaciarCampos();
-					DBManager.eliminarAdmin(d, n);
+					try {
+						DBManager.eliminarAdmin(d, n);
+					} catch (ExcepcionAlud e1) {
+						logger.log(Level.SEVERE, "Error eliminarAdmin", e1);
+					}
 					return;
 				}
 
-				ArrayList<Admin> aAdmins = DBManager.obtenerAdmin(d);
+				ArrayList<Admin> aAdmins = new ArrayList<Admin>();
+				try {
+					aAdmins = DBManager.obtenerAdmin(d);
+				} catch (ExcepcionAlud e1) {
+					logger.log(Level.SEVERE, "Error obtenerAdmin", e1);
+				}
 
 				if (aAdmins.size() > 0) {
 					JOptionPane.showMessageDialog(null, "Este admin ya está en la base de datos", "ERROR!!",
@@ -89,7 +107,12 @@ public class Registro extends JFrame {
 					return;
 				}
 
-				DBManager.anadirAdmin(d, n);
+				try {
+					DBManager.anadirAdmin(d, n);
+				} catch (ExcepcionAlud e1) {
+					logger.log(Level.SEVERE, "Error anadirAdmin", e1);
+
+				}
 				JOptionPane.showMessageDialog(null, "Persona registrada correctamente", "REGISTRO CORRECTO",
 						JOptionPane.INFORMATION_MESSAGE);
 				vaciarCampos();
@@ -122,7 +145,6 @@ public class Registro extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ventanaActual.dispose();
-				// Inicio.setVisible(true);
 				new Inicio();
 			}
 		});
