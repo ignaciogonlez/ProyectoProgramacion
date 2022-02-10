@@ -7,54 +7,46 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.tree.DefaultTreeModel;
 
 import Clases.Asignatura;
 import Clases.AsignaturasTableModel;
 import Clases.DBManager;
+import Clases.ExcepcionAlud;
 
 public class Gestion extends JFrame {
 
-	private Clases.DBManager dbManager;
 	private JTable asignaturasJTable;
 	private List<Asignatura> asignaturas;
 	private JLabel informacionLabel;
 	JTextField carreraFilter;
+	private static Logger logger = Logger.getLogger("Asignatura");
 
-	private DefaultTreeModel modeloArbolcursos;
-	private JMenuBar menu;
-	private JMenu mArchivo;
 	private JTextField txtFiltrarPorAno;
 	private JButton btnFiltrarPorAno;
 	private JButton btnInsertarAsignatura;
 	private JButton btnExportar;
 	private JButton btnReset;
 
-	public Gestion() {
-
-		dbManager = new Clases.DBManager();
+	public Gestion() throws ExcepcionAlud {
 
 		asignaturasJTable = new JTable();
 		JScrollPane scrollPane = new JScrollPane(asignaturasJTable);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 		try {
-			asignaturas = dbManager.getAsignaturas();
+			asignaturas = DBManager.getAsignaturas();
 		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			throw new ExcepcionAlud(e2.getMessage());
 		}
 		asignaturasJTable.setModel(new AsignaturasTableModel(asignaturas));
 
@@ -76,14 +68,12 @@ public class Gestion extends JFrame {
 		pNorte.add(txtFiltrarPorAno);
 		txtFiltrarPorAno.setColumns(10);
 
-
-
 		btnFiltrarPorAno = new JButton("FILTRAR POR ANO");
 		pNorte.add(btnFiltrarPorAno);
 
 		btnReset = new JButton("RESET");
 		pNorte.add(btnReset);
-		
+
 		btnExportar = new JButton("Exportar");
 		getContentPane().add(btnExportar, BorderLayout.SOUTH);
 
@@ -102,8 +92,7 @@ public class Gestion extends JFrame {
 					updateUI(asignaturas);
 
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log(Level.SEVERE, "Gestion error", e1);
 				}
 
 			}
@@ -113,7 +102,6 @@ public class Gestion extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String carrera = carreraFilter.getText();
 				List<Asignatura> asignaturas;
 				try {
 					int ano = Integer.parseInt(txtFiltrarPorAno.getText());
@@ -136,8 +124,7 @@ public class Gestion extends JFrame {
 					try {
 						Gestion.this.asignaturas = DBManager.getAsignaturas();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.log(Level.SEVERE, "Error getAsignaturas", e);
 					}
 					updateUI(asignaturas);
 				}
@@ -151,8 +138,7 @@ public class Gestion extends JFrame {
 				try {
 					Gestion.this.asignaturas = DBManager.getAsignaturas();
 				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
+					logger.log(Level.SEVERE, "Error getAsignaturas", e);
 				}
 				updateUI(asignaturas);
 
@@ -178,9 +164,9 @@ public class Gestion extends JFrame {
 				myWriter.write(line + "\n");
 			}
 			myWriter.close();
-			System.out.println("Escrito.");
+			logger.log(Level.INFO, "Escrito FICHERO");
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error escribirFichero", e);
 		}
 	}
 }

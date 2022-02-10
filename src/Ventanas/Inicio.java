@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import Clases.Admin;
 import Clases.DBManager;
+import Clases.ExcepcionAlud;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,6 +27,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -39,6 +42,7 @@ public class Inicio extends JFrame {
 	private JFrame ventanaActual;
 	private JButton btnGestion;
 	private JLabel lblLogoUD;
+	private static Logger logger = Logger.getLogger("Asignatura");
 
 	/**
 	 * Launch the application.
@@ -110,6 +114,8 @@ public class Inicio extends JFrame {
 		btnSalir.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				logger.log(Level.SEVERE, "Saliendo....");
+
 				System.exit(0);
 			}
 		});
@@ -120,12 +126,9 @@ public class Inicio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					new Registro();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception e1) {
+					logger.log(Level.SEVERE, "Error en Registro", e1);
+
 				}
 				ventanaActual.setVisible(false);
 			}
@@ -141,24 +144,23 @@ public class Inicio extends JFrame {
 				try {
 					DBManager.connect();
 				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.log(Level.SEVERE, "Error conectando con bd", e1);
 				}
 				DBManager.crearTablas();
 				ArrayList<Admin> aAdmins = DBManager.obtenerAdmin(d, textContrasenia.getText());
 
 				if (!correctoDni) {
-					JOptionPane.showMessageDialog(null, "El dni o la contraseña no son correcto", "ERROR!!", JOptionPane.ERROR_MESSAGE);
-				
+					JOptionPane.showMessageDialog(null, "El dni o la contraseña no son correcto", "ERROR!!",
+							JOptionPane.ERROR_MESSAGE);
 
 				} else if (aAdmins.size() > 0) {
 					JOptionPane.showMessageDialog(null, "Bienvenido", "ALUD!!", JOptionPane.INFORMATION_MESSAGE);
-					new Gestion();
+					try {
+						new Gestion();
+					} catch (ExcepcionAlud e1) {
+						logger.log(Level.SEVERE, "Error en Gestion", e1);
+					}
 					ventanaActual.setVisible(false);
-					// new Ventana3();
-
-
-
 				} else {
 					JOptionPane.showMessageDialog(null, "Primero debe registrarse", "INICIO INCORRECTO",
 							JOptionPane.INFORMATION_MESSAGE);
