@@ -4,7 +4,13 @@ public class Admin {
 
 	private String dni;
 	private String contrasena;
-
+	
+	
+	/**
+	 * Constructor específico de la clase admin
+	 * @param dni del admin
+	 * @param contrasena del admin
+	 */
 	public Admin(String dni, String contrasena) {
 		super();
 		this.dni = dni;

@@ -16,7 +16,7 @@ public class DBManager {
 	public static Connection conn;
 
 	/**
-	 * Abre la BD
+	 * Método que abre la BD.
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException           error con la BD
@@ -29,7 +29,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Cierra la BD
+	 * Método que cierra la BD.
 	 * 
 	 * @throws SQLException error con la BD
 	 */
@@ -39,13 +39,9 @@ public class DBManager {
 	}
 
 	/**
-	 * Obtiene la lista de todas las asignaturas de la BD.
-	 * 
-	 * @return lista de todos las asignaturas de la base de datos.
+	 * Método que crea las tablas de la BD.
 	 * @throws ExcepcionAlud
-	 * @throws SQLException  error al intentar obtener la lista .
 	 */
-
 	public static void crearTablas() throws ExcepcionAlud {
 		logger.log(Level.FINE, "Creando tablas");
 
@@ -72,7 +68,9 @@ public class DBManager {
 	}
 
 	/**
-	
+	 * Método que añade una asignatura a la tabla asignaturas de la BD.
+	 * @param asig
+	 * @throws ExcepcionAlud
 	 */
 	public static void anadirAsignatura(Asignatura asig) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Añadiendo asignatura: " + asig);
@@ -97,7 +95,12 @@ public class DBManager {
 			}
 		}
 	}
-
+	
+	/**
+	 * Método que devuelve una lista de todas las asignaturas de la tabla asignaturas ordenadas por año academico.
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<Asignatura> getAsignaturas() throws SQLException {
 		logger.log(Level.FINE, "Buscando todas las asignaturas...");
 
@@ -117,9 +120,9 @@ public class DBManager {
 	}
 
 	/**
-	 * 
+	 * Método que devuelve todas las asignaturas de un año académico en especial.
 	 * @param anoAcademico
-	 * @return asignaturas de el param anoAcademico
+	 * @return lista de asignaturas
 	 * @throws SQLException
 	 */
 	public static List<Asignatura> getAsignaturaAno(int anoAcademico) throws ExcepcionAlud {
@@ -153,10 +156,10 @@ public class DBManager {
 	}
 
 	/**
-	 * 
-	 * @param
-	 * @return asignaturas de el param carrera
-	 * @throws SQLException
+	 * Método que devuelve las asignaturas de una carrera.
+	 * @param carrera
+	 * @return
+	 * @throws ExcepcionAlud
 	 */
 	public static List<Asignatura> getAsignaturaAno(String carrera) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Buscando asignaturas con carrera: " + carrera);
@@ -189,11 +192,10 @@ public class DBManager {
 	}
 
 	/**
-	 * Añadir un admin
-	 * 
-	 * @param con
+	 * Método que sirve para añadir un nuevo admin a la BD.
 	 * @param dni
 	 * @param contrasena
+	 * @throws ExcepcionAlud
 	 */
 	public static void anadirAdmin(String dni, String contrasena) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Añadiendo admin con dni: " + dni);
@@ -218,10 +220,9 @@ public class DBManager {
 	}
 
 	/**
-	 * listado de admins
-	 * 
-	 * @param con
+	 * Método que devuelve todos los admins de la tabla admin de la BD.
 	 * @return
+	 * @throws ExcepcionAlud
 	 */
 	public static ArrayList<Admin> obtenerAdmin() throws ExcepcionAlud {
 		logger.log(Level.FINE, "Buscando admins...");
@@ -251,7 +252,13 @@ public class DBManager {
 		}
 		return aAdmin;
 	}
-
+	
+	/**
+	 * Método que elimina un admin de la tabla BD.
+	 * @param dni
+	 * @param contrasena
+	 * @throws ExcepcionAlud
+	 */
 	public static void eliminarAdmin(String dni, String contrasena) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Eliminar admin con dni: " + dni);
 
@@ -274,7 +281,14 @@ public class DBManager {
 			}
 		}
 	}
-
+	
+	/**
+	 * Método que devuelve el admin con ese dni y contraña pass de la tabla admin.
+	 * @param dni
+	 * @param pass
+	 * @return
+	 * @throws ExcepcionAlud
+	 */
 	public static ArrayList<Admin> obtenerAdmin(String dni, String pass) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Obteniendo admin con dni: " + dni);
 
@@ -304,7 +318,13 @@ public class DBManager {
 		}
 		return aAdmin;
 	}
-
+	
+	/**
+	 * Método que devuelve el admin de la tabla admin de la BD con ese dni.
+	 * @param dni
+	 * @return
+	 * @throws ExcepcionAlud
+	 */
 	public static ArrayList<Admin> obtenerAdmin(String dni) throws ExcepcionAlud {
 		logger.log(Level.FINE, "Obteniendo admin con dni: " + dni);
 

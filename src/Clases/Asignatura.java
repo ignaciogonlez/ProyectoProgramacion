@@ -7,7 +7,16 @@ public class Asignatura {
 	private String nomprofesor;
 	private int creditos;
 	private String carrera;
-
+	
+	
+	/**
+	 * Constructor específico de la clase asignatura
+	 * @param anoAcademico
+	 * @param nomAsignatura
+	 * @param nomprofesor
+	 * @param creditos
+	 * @param carrera
+	 */
 	public Asignatura(int anoAcademico, String nomAsignatura, String nomprofesor, int creditos, String carrera) {
 		super();
 		this.anoAcademico = anoAcademico;
@@ -56,7 +65,10 @@ public class Asignatura {
 	public void setCarrera(String carrera) {
 		this.carrera = carrera;
 	}
-
+	
+	/**
+	 * Método toString de la clase asignatura
+	 */
 	@Override
 	public String toString() {
 		String toString = String.format("%s %s %d", this.getNomAsignatura(), this.getNomprofesor(), this.getCreditos());

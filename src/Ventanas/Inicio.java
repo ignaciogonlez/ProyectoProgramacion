@@ -114,6 +114,10 @@ public class Inicio extends JFrame {
 		lblLogoUD.setFont(new Font("Tahoma", Font.BOLD, 67));
 		lblLogoUD.setIcon(new ImageIcon("logo-vector-universidad-deusto.jpg"));
 		contentPane.add(lblLogoUD, BorderLayout.NORTH);
+		
+		/**
+		 * Botón que cierra la ventana.
+		 */
 		btnSalir.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +126,10 @@ public class Inicio extends JFrame {
 				System.exit(0);
 			}
 		});
-
+		
+		/**
+		 * Botón que lleva a la ventana registro.
+		 */
 		btnRegistro.addActionListener(new ActionListener() {
 
 			@Override
@@ -136,7 +143,10 @@ public class Inicio extends JFrame {
 				ventanaActual.setVisible(false);
 			}
 		});
-
+		
+		/**
+		 * Botón que lleva a la ventana gestión si los datos introducidos en dni y contraseña son correctos.
+		 */
 		btnGestion.addActionListener(new ActionListener() {
 
 			@Override

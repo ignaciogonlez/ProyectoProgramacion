@@ -7,14 +7,16 @@ import javax.swing.table.AbstractTableModel;
 
 public class AsignaturasTableModel extends AbstractTableModel {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final List<String> headers = Arrays.asList("anoAcademico", "nomAsignatura", "nomprofesor", "creditos",
 			"carrera");
 	private List<Asignatura> aAsignatura;
-
+	
+	/**
+	 * Constructor específico de la clase AsignaturasTableModel
+	 * @param aAsignatura
+	 */
 	public AsignaturasTableModel(List<Asignatura> aAsignatura) {
 		this.aAsignatura = aAsignatura;
 	}

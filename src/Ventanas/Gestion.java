@@ -81,6 +81,10 @@ public class Gestion extends JFrame {
 			escribirFichero();
 		});
 
+		
+		/**
+		 * Botón que filtra la JTable para que se vean las asignaturas de una carrera.
+		 */
 		btnCarrera.addActionListener(new ActionListener() {
 
 			@Override
@@ -98,6 +102,9 @@ public class Gestion extends JFrame {
 			}
 		});
 
+		/**
+		 * Botón que filtra la JTable para que se vean las asignaturas de una año de carrera.
+		 */
 		btnFiltrarPorAno.addActionListener(new ActionListener() {
 
 			@Override
@@ -116,6 +123,10 @@ public class Gestion extends JFrame {
 			}
 		});
 
+		
+		/**
+		 * Botón que te lleva a la ventana anadirAsignatura y cuando se cierra se actualiza la JTable.
+		 */
 		btnInsertarAsignatura.addActionListener(e -> { // java funcional
 			new AnadirAsignatura().addWindowListener(new java.awt.event.WindowAdapter() {
 				@Override
@@ -132,6 +143,10 @@ public class Gestion extends JFrame {
 			;
 		});
 
+		
+		/**
+		 * Botón que resetea la tabla para eliminar los filtrados.
+		 */
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -155,6 +170,9 @@ public class Gestion extends JFrame {
 		informacionLabel.setText(String.format("%d launches", asignaturas.size()));
 	}
 
+	/**
+	 * Método que genera un fichero txt con los datos de la JTable.
+	 */
 	private void escribirFichero() {
 		try {
 			FileWriter myWriter = new FileWriter("exported.txt");

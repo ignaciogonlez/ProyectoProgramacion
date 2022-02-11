@@ -145,7 +145,11 @@ public class AnadirAsignatura extends JFrame {
 		gbc_btnInsertar.gridx = 5;
 		gbc_btnInsertar.gridy = 8;
 		getContentPane().add(btnInsertar, gbc_btnInsertar);
-
+		
+		
+		/**
+		 * Botón que añade una asignatura a la tabla asignaturas de la BD con los parámetros de los textFields.
+		 */
 		btnInsertar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -170,7 +174,11 @@ public class AnadirAsignatura extends JFrame {
 				}
 			}
 		});
-
+		
+		
+		/**
+		 * Botón que regresa a la ventana gestión.
+		 */
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override

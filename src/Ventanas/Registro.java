@@ -26,9 +26,7 @@ import javax.swing.JTextField;
 
 public class Registro extends JFrame {
 
-	/**
-	* 
-	*/
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, panelSur;
 	private JButton btnVolver;
@@ -69,6 +67,11 @@ public class Registro extends JFrame {
 		panelSur.add(btnVolver);
 
 		btnRegistrarPersona = new JButton("REGISTRAR PERSONA");
+		
+		
+		/**
+		 * Bóton que registra a la persona en la tabla admin de la BD si el dni y la contraseña a registrar son correctos.
+		 */
 		btnRegistrarPersona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String erdni = "[0-9]{8}[A-Z]";
@@ -139,7 +142,10 @@ public class Registro extends JFrame {
 		panelCentral.add(textContrasena);
 		textContrasena.setColumns(10);
 
-		/* EVENTOS */
+		
+		/**
+		 * Botón que regresa a la ventana Inicio.
+		 */
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
